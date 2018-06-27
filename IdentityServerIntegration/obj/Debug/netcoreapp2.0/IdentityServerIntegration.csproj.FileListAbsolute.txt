@@ -9,3 +9,4 @@ C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\obj\Debug\
 C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\obj\Debug\netcoreapp2.0\IdentityServerIntegration.AssemblyInfo.cs
 C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\obj\Debug\netcoreapp2.0\IdentityServerIntegration.dll
 C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\obj\Debug\netcoreapp2.0\IdentityServerIntegration.pdb
+C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

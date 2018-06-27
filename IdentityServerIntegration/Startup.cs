@@ -16,9 +16,12 @@ namespace IdentityServerIntegration
 {
     public class Startup
     {
+        private IdentityServerConfig IdentityServerConfig { get; set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            IdentityServerConfig = new IdentityServerConfig();
         }
 
         public IConfiguration Configuration { get; }
@@ -37,6 +40,15 @@ namespace IdentityServerIntegration
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            // configure identity server with in-memory stores, keys, clients and scopes
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryPersistedGrants()
+                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+                .AddInMemoryApiResources(IdentityServerConfig.ApiResources)
+                .AddInMemoryClients(IdentityServerConfig.Clients)
+                .AddAspNetIdentity<ApplicationUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

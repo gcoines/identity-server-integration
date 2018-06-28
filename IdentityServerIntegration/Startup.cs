@@ -29,8 +29,11 @@ namespace IdentityServerIntegration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var migrationsAssembly = typeof(Startup).Assembly.GetName().Name;
+
+            services.AddDbContext<ApplicationDbContext>(dbContextOptionsBuilder =>
+                dbContextOptionsBuilder.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -43,7 +46,26 @@ namespace IdentityServerIntegration
 
             // configure identity server with EF stores, keys, clients and scopes
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential();
+                .AddDeveloperSigningCredential()
+                .AddTestUsers(IdentityServerConfig.Users.ToList())
+                // this adds the config data from DB (clients, resources)
+                .AddConfigurationStore(configurationStoreOptions =>
+                {
+                    configurationStoreOptions.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(connectionString,
+                            sql => sql.MigrationsAssembly(migrationsAssembly));
+                })
+                // this adds the operational data from DB (codes, tokens, consents)
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(connectionString,
+                            sql => sql.MigrationsAssembly(migrationsAssembly));
+
+                    // this enables automatic token cleanup. this is optional.
+                    options.EnableTokenCleanup = true;
+                    options.TokenCleanupInterval = 30;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

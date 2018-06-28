@@ -1,5 +1,6 @@
 ﻿using IdentityServer4;
 using IdentityServer4.Models;
+using IdentityServer4.Test;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,17 @@ namespace IdentityServerIntegration
                     },
                     AllowOfflineAccess = true
                 }
-
+            };
+            Users = new List<TestUser> {
+                new TestUser
+                {
+                    SubjectId = Guid.Empty.ToString(),
+                    Username = "Alice",
+                    Password = "!123$456",
+                    ProviderName = "Test provider",
+                    ProviderSubjectId = Guid.Empty.ToString(),
+                    IsActive = true
+                }
             };
         }
 
@@ -61,5 +72,7 @@ namespace IdentityServerIntegration
         public IEnumerable<ApiResource> ApiResources { get; private set; }
 
         public IEnumerable<Client> Clients { get; private set; }
+
+        public IEnumerable<TestUser> Users { get; private set; }
     }
 }

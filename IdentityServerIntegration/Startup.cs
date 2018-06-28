@@ -41,14 +41,9 @@ namespace IdentityServerIntegration
 
             services.AddMvc();
 
-            // configure identity server with in-memory stores, keys, clients and scopes
+            // configure identity server with EF stores, keys, clients and scopes
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddInMemoryPersistedGrants()
-                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
-                .AddInMemoryApiResources(IdentityServerConfig.ApiResources)
-                .AddInMemoryClients(IdentityServerConfig.Clients)
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddDeveloperSigningCredential();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

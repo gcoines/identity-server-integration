@@ -1,4 +1,3 @@
-C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\obj\Debug\netcoreapp2.0\IdentityServerIntegration.csprojAssemblyReference.cache
 C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\bin\Debug\netcoreapp2.0\IdentityServerIntegration.deps.json
 C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\bin\Debug\netcoreapp2.0\IdentityServerIntegration.runtimeconfig.json
 C:\Projects\GCL\identity-server-integration\IdentityServerIntegration\bin\Debug\netcoreapp2.0\IdentityServerIntegration.runtimeconfig.dev.json
